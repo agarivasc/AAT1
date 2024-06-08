@@ -17,11 +17,10 @@ header {
 }
 
 header .logo img {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     object-fit: cover;
-    clip-path: circle(50%);
 }
 
 nav ul {
@@ -115,4 +114,41 @@ footer {
     text-align: center;
     padding: 1em;
     position: fixed;
-    bottom:
+    bottom: 0;
+    width: 100%;
+}
+
+.producto {
+    border: 1px solid #ddd;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-top: 10px;
+}
+
+form input, form textarea {
+    margin-top: 5px;
+    padding: 10px;
+    font-size: 1em;
+}
+
+form button {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 1em;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #555;
+}
