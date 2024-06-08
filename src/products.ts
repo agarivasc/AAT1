@@ -38,7 +38,7 @@ export class Productos {
   }
 
   actualizarProducto(id: number, updatedProduct: Partial<Producto>): void {
-    const index = this.productos.findIndex(producto => producto.id === id);
+    const index = this.productos.findIndex((producto) => producto.id === id);
     if (index !== -1) {
       const producto = this.productos[index];
       this.productos[index] = { ...producto, ...updatedProduct };
@@ -46,7 +46,9 @@ export class Productos {
       this.actualizarProductoEnDOM(this.productos[index]);
     }
   }
-
+  numeroProductos(): number {
+    return this.productos.length + 1;
+  }
   agregarProductoAlDOM(producto: Producto): void {
     const container = document.getElementById("productos-container");
 
@@ -56,12 +58,17 @@ export class Productos {
       card.style.width = "18rem";
       card.id = `producto-${producto.id}`;
       card.innerHTML = `
-        <img src="${producto.image}" class="card-img-top" alt="${producto.name}">
+        <img src="${producto.image}" class="card-img-top" alt="${
+        producto.name
+      }">
         <div class="card-body">
           <h5 class="card-title">${producto.name}</h5>
           <p class="card-text">${producto.description}</p>
           <p class="card-text">$${producto.price.toFixed(2)}</p>
           <a href="#" class="btn btn-primary">Comprar</a>
+          <button data-id="${producto.id}" id="producto${
+        producto.id
+      }" type="button" class="btn btn-danger dynamic-btn">Eliminar</button>
         </div>
       `;
       container.appendChild(card);
@@ -71,14 +78,14 @@ export class Productos {
   actualizarProductoEnDOM(producto: Producto): void {
     const card = document.getElementById(`producto-${producto.id}`);
     if (card) {
-      const img = card.querySelector('.card-img-top');
-      const title = card.querySelector('.card-title');
-      const description = card.querySelector('.card-text');
-      const priceElements = card.querySelectorAll('.card-text');
+      const img = card.querySelector(".card-img-top");
+      const title = card.querySelector(".card-title");
+      const description = card.querySelector(".card-text");
+      const priceElements = card.querySelectorAll(".card-text");
 
       if (img) {
-        img.setAttribute('src', producto.image);
-        img.setAttribute('alt', producto.name);
+        img.setAttribute("src", producto.image);
+        img.setAttribute("alt", producto.name);
       }
 
       if (title) {
@@ -90,7 +97,9 @@ export class Productos {
       }
 
       if (priceElements.length > 1) {
-        priceElements[priceElements.length - 1].textContent = `$${producto.price.toFixed(2)}`;
+        priceElements[
+          priceElements.length - 1
+        ].textContent = `$${producto.price.toFixed(2)}`;
       }
     }
   }
@@ -103,7 +112,6 @@ export class Productos {
   }
 
   renderProductos(): void {
-    this.productos.forEach(producto => this.agregarProductoAlDOM(producto));
+    this.productos.forEach((producto) => this.agregarProductoAlDOM(producto));
   }
 }
-
