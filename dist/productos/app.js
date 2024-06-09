@@ -1,26 +1,18 @@
 import { Productos } from "./products.js";
 const product = new Productos();
 const username = localStorage.getItem("username");
-let a = document.getElementById("ingresar");
-if (username) {
-    a.textContent = "Cerrar sesión";
-    a.href = "../productos.html";
-}
-a.addEventListener("click", () => {
-    if (username) {
-        localStorage.removeItem("username");
-    }
-});
-/*
-productos.guardarProducto({
-  id: 1,
-  name: "Producto 1",
-  description: "Descripción del producto 1",
-  price: 100,
-  image: "https://via.placeholder.com/150",
-});*/
-/////////////////////////////////////////////////////
+///////////////////////////////////////////
 document.addEventListener("DOMContentLoaded", () => {
+    let a = document.getElementById("ingresar");
+    if (username) {
+        a.textContent = "Cerrar sesión";
+        a.href = "/";
+    }
+    a.addEventListener("click", () => {
+        if (username) {
+            localStorage.removeItem("username");
+        }
+    });
     if (!username) {
         let button = document.getElementById("addProductButton");
         button.hidden = true;
@@ -46,7 +38,6 @@ function handleButtonClick(id) {
     if (id) {
         console.log(`Button with ID ${id} was clicked.`);
         product.eliminarProducto(parseInt(id));
-        // Implementa la lógica que necesitas aquí
     }
 }
 document
@@ -61,9 +52,6 @@ document
         image: document.getElementById("productImage")
             .value,
     });
-    // Aquí puedes enviar el objeto 'product' a otro archivo o servidor
-    console.log("Producto agregado:", product);
-    // Opcional: Limpiar el formulario y cerrar el modal
     this.reset();
     const modalElement = document.querySelector("#addProductModal");
     const modal = bootstrap.Modal.getInstance(modalElement);
