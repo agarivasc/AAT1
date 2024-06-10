@@ -9,7 +9,6 @@ export class Productos {
     guardarProducto(producto) {
         this.productos.push(producto);
         localStorage.setItem("productos", JSON.stringify(this.productos));
-        this.agregarProductoAlDOM(producto);
     }
     obtenerProductos() {
         return this.productos;
@@ -21,16 +20,6 @@ export class Productos {
     eliminarProducto(id) {
         this.productos = this.productos.filter((producto) => producto.id !== id);
         localStorage.setItem("productos", JSON.stringify(this.productos));
-        this.eliminarProductoDelDOM(id);
-    }
-    actualizarProducto(id, updatedProduct) {
-        const index = this.productos.findIndex((producto) => producto.id === id);
-        if (index !== -1) {
-            const producto = this.productos[index];
-            this.productos[index] = Object.assign(Object.assign({}, producto), updatedProduct);
-            localStorage.setItem("productos", JSON.stringify(this.productos));
-            this.actualizarProductoEnDOM(this.productos[index]);
-        }
     }
     numeroProductos() {
         return this.productos.length + 1;
@@ -49,11 +38,29 @@ export class Productos {
           <p class="card-text">${producto.description}</p>
           <p class="card-text">$${producto.price.toFixed(2)}</p>
           <a href="#" class="btn btn-primary">Comprar</a>
-          <button data-id="${producto.id}" id="producto${producto.id}" type="button" class="btn btn-danger dynamic-btn">Eliminar</button>
-        </div>
+
+          <button type="button" data-idE="${producto.id}"  class="btn btn-danger dynamic-btn">Eliminar</button>
+      
+      <button
+      data-idEd="${producto.id}"
+          id="editProductButton"
+          type="button"
+          class="btn btn-primary btn-edit"
+          data-bs-toggle="modal"
+          data-bs-target="#editProductModal"
+        >
+          Editar
+        </button>  
+      </div>
+        
       `;
             container.appendChild(card);
         }
+    }
+    actualizarProducto(productoActualizado) {
+        this.productos = this.productos.map((producto) => producto.id === productoActualizado.id ? productoActualizado : producto);
+        localStorage.setItem("productos", JSON.stringify(this.productos));
+        this.actualizarProductoEnDOM(productoActualizado);
     }
     actualizarProductoEnDOM(producto) {
         const card = document.getElementById(`producto-${producto.id}`);

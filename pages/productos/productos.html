@@ -49,7 +49,7 @@
           <!-- Aquí se agregarán las tarjetas de productos -->
         </div>
 
-        <!-- Modal -->
+        <!-- Modal Agregar-->
         <div
           class="modal fade"
           id="addProductModal"
@@ -122,15 +122,11 @@
             </div>
           </div>
         </div>
+        <!-- Modal Editar-->
+        <div id="modalEditar"></div>
       </section>
     </main>
-    <script type="module">
-      import { Productos } from "/dist/productos/products.js";
-      document.addEventListener("DOMContentLoaded", () => {
-        const productos = new Productos();
-        productos.renderProductos();
-      });
-    </script>
+    <script type="module" src="/dist/productos/logica_productos.js"></script>
     <script type="module" src="/dist/productos/app.js"></script>
   </body>
   <footer class="footer">

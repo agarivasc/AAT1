@@ -38,8 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
   buttons.forEach((button) => {
     button.addEventListener("click", (event: Event) => {
       const target = event.target as HTMLButtonElement;
-      const buttonId = target.getAttribute("data-id");
-      console.log(`Button clicked: ${buttonId}`);
+      const buttonId = target.getAttribute("data-idE");
+      //console.log(`Button clicked: ${buttonId}`);
       handleButtonClick(buttonId);
     });
   });
@@ -48,16 +48,15 @@ document.addEventListener("DOMContentLoaded", () => {
 function handleButtonClick(id: string | null) {
   // Lógica para manejar el clic del botón basado en el ID
   if (id) {
-    console.log(`Button with ID ${id} was clicked.`);
+    // console.log(`Button with ID ${id} was clicked.`);
     product.eliminarProducto(parseInt(id));
+    //recargar la pagina sin load
   }
 }
-
+///Manejo del formulario de productos insertados
 document
   .getElementById("productForm")!
   .addEventListener("submit", function (event) {
-    event.preventDefault();
-
     product.guardarProducto({
       id: product.numeroProductos(),
       name: (document.getElementById("productName") as HTMLInputElement).value,
