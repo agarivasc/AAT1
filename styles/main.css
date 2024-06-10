@@ -78,7 +78,7 @@ nav ul .dropdown:hover > a {
     background-color: #555;
 }
 
-main {
+main{
     padding: 2em;
 }
 
@@ -116,6 +116,7 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+    
 }
 
 .producto {
@@ -152,3 +153,5 @@ form button {
 form button:hover {
     background-color: #555;
 }
+
+
