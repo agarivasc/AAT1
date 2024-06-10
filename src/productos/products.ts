@@ -19,7 +19,6 @@ export class Productos {
   guardarProducto(producto: Producto): void {
     this.productos.push(producto);
     localStorage.setItem("productos", JSON.stringify(this.productos));
-    this.agregarProductoAlDOM(producto);
   }
 
   obtenerProductos(): Producto[] {
@@ -34,19 +33,11 @@ export class Productos {
   eliminarProducto(id: number): void {
     this.productos = this.productos.filter((producto) => producto.id !== id);
     localStorage.setItem("productos", JSON.stringify(this.productos));
-    this.eliminarProductoDelDOM(id);
   }
 
-  actualizarProducto(id: number, updatedProduct: Partial<Producto>): void {
-    const index = this.productos.findIndex(producto => producto.id === id);
-    if (index !== -1) {
-      const producto = this.productos[index];
-      this.productos[index] = { ...producto, ...updatedProduct };
-      localStorage.setItem("productos", JSON.stringify(this.productos));
-      this.actualizarProductoEnDOM(this.productos[index]);
-    }
+  numeroProductos(): number {
+    return this.productos.length + 1;
   }
-
   agregarProductoAlDOM(producto: Producto): void {
     const container = document.getElementById("productos-container");
 
@@ -56,29 +47,53 @@ export class Productos {
       card.style.width = "18rem";
       card.id = `producto-${producto.id}`;
       card.innerHTML = `
-        <img src="${producto.image}" class="card-img-top" alt="${producto.name}">
+        <img src="${producto.image}" class="card-img-top" alt="${
+        producto.name
+      }">
         <div class="card-body">
           <h5 class="card-title">${producto.name}</h5>
           <p class="card-text">${producto.description}</p>
           <p class="card-text">$${producto.price.toFixed(2)}</p>
           <a href="#" class="btn btn-primary">Comprar</a>
-        </div>
+
+          <button type="button" data-idE="${
+            producto.id
+          }"  class="btn btn-danger dynamic-btn">Eliminar</button>
+      
+      <button
+      data-idEd="${producto.id}"
+          id="editProductButton"
+          type="button"
+          class="btn btn-primary btn-edit"
+          data-bs-toggle="modal"
+          data-bs-target="#editProductModal"
+        >
+          Editar
+        </button>  
+      </div>
+        
       `;
       container.appendChild(card);
     }
   }
-
+  actualizarProducto(productoActualizado: Producto): void {
+    this.productos = this.productos.map((producto) =>
+      producto.id === productoActualizado.id ? productoActualizado : producto
+    );
+    localStorage.setItem("productos", JSON.stringify(this.productos));
+    this.actualizarProductoEnDOM(productoActualizado);
+  }
   actualizarProductoEnDOM(producto: Producto): void {
     const card = document.getElementById(`producto-${producto.id}`);
     if (card) {
-      const img = card.querySelector('.card-img-top');
-      const title = card.querySelector('.card-title');
-      const description = card.querySelector('.card-text');
-      const priceElements = card.querySelectorAll('.card-text');
+      const img = card.querySelector(".card-img-top");
+      const title = card.querySelector(".card-title");
+      const description = card.querySelector(".card-text");
+      const priceElements = card.querySelectorAll(".card-text");
 
       if (img) {
-        img.setAttribute('src', producto.image);
-        img.setAttribute('alt', producto.name);
+        img.setAttribute("src", producto.image);
+        img.setAttribute("alt", producto.name);
       }
 
       if (title) {
@@ -90,7 +105,9 @@ export class Productos {
       }
 
       if (priceElements.length > 1) {
-        priceElements[priceElements.length - 1].textContent = `$${producto.price.toFixed(2)}`;
+        priceElements[
+          priceElements.length - 1
+        ].textContent = `$${producto.price.toFixed(2)}`;
       }
     }
   }
@@ -103,7 +120,6 @@ export class Productos {
   }
 
   renderProductos(): void {
-    this.productos.forEach(producto => this.agregarProductoAlDOM(producto));
+    this.productos.forEach((producto) => this.agregarProductoAlDOM(producto));
   }
 }
-
