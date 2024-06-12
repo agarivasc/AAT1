@@ -25,66 +25,62 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", (event) => {
             const target = event.target;
             const buttonId = target.getAttribute("data-idEd");
-            // console.log(`Button clicked: ${buttonId}`);
             const producto = productos.obtenerProducto(parseInt(buttonId));
-            //llenar formulario con los datos del producto
-            const form = document.getElementById("editproductForm");
-            form.elements.namedItem("idproducto").setAttribute("value", buttonId);
-            form.elements.namedItem("editname").setAttribute("value", producto.name);
-            form.elements.namedItem("editdescription").value = producto.description;
-            //.setAttribute("value", producto.description);
-            form.elements
-                .namedItem("editprecio")
-                .setAttribute("value", producto.price.toString());
-            form.elements
-                .namedItem("editimagen")
-                .setAttribute("value", producto.image);
+            if (producto) {
+                //llenar formulario con los datos del producto
+                const form = document.getElementById("editproductForm");
+                form.elements.namedItem("idproducto").setAttribute("value", buttonId);
+                form.elements.namedItem("editname").setAttribute("value", producto.name);
+                form.elements.namedItem("editdescription").value = producto.description;
+                form.elements.namedItem("editprecio").setAttribute("value", producto.price.toString());
+                form.elements.namedItem("editimagen").setAttribute("value", producto.image);
+            }
         });
     });
+    function editar() {
+        //actualizar producto
+        document
+            .getElementById("editproductForm")
+            .addEventListener("submit", function (event) {
+            const id = parseInt(document.getElementById("idproducto").value);
+            const name = document.getElementById("editname")
+                .value;
+            const description = document.getElementById("editdescription").value;
+            const price = parseFloat(document.getElementById("editprecio").value);
+            const image = document.getElementById("editimagen")
+                .value;
+            productos.actualizarProducto({
+                id,
+                name,
+                description,
+                price,
+                image,
+            });
+            this.reset();
+        });
+    }
+    // funcion para agregar producto
+    function agregarProducto() {
+        ///Manejo del formulario de productos insertados
+        var bootstrap;
+        const product = new Productos();
+        document
+            .getElementById("productForm")
+            .addEventListener("submit", function (event) {
+            product.guardarProducto({
+                id: product.numeroProductos(),
+                name: document.getElementById("productName")
+                    .value,
+                description: document.getElementById("productDescription").value,
+                price: parseFloat(document.getElementById("productPrice").value),
+                image: document.getElementById("productImage")
+                    .value,
+            });
+            this.reset();
+            const modalElement = document.querySelector("#addProductModal");
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            if (modal)
+                modal.hide();
+        });
+    }
 });
-function editar() {
-    //actualizar producto
-    document
-        .getElementById("editproductForm")
-        .addEventListener("submit", function (event) {
-        const id = parseInt(document.getElementById("idproducto").value);
-        const name = document.getElementById("editname")
-            .value;
-        const description = document.getElementById("editdescription").value;
-        const price = parseFloat(document.getElementById("editprecio").value);
-        const image = document.getElementById("editimagen")
-            .value;
-        productos.actualizarProducto({
-            id,
-            name,
-            description,
-            price,
-            image,
-        });
-        this.reset();
-    });
-}
-// funcion para agregar producto
-function agregarProducto() {
-    ///Manejo del formulario de productos insertados
-    var bootstrap;
-    const product = new Productos();
-    document
-        .getElementById("productForm")
-        .addEventListener("submit", function (event) {
-        product.guardarProducto({
-            id: product.numeroProductos(),
-            name: document.getElementById("productName")
-                .value,
-            description: document.getElementById("productDescription").value,
-            price: parseFloat(document.getElementById("productPrice").value),
-            image: document.getElementById("productImage")
-                .value,
-        });
-        this.reset();
-        const modalElement = document.querySelector("#addProductModal");
-        const modal = bootstrap.Modal.getInstance(modalElement);
-        if (modal)
-            modal.hide();
-    });
-}

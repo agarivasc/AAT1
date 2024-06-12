@@ -27,29 +27,22 @@ document.addEventListener("DOMContentLoaded", () => {
     ".btn-edit"
   ) as NodeListOf<HTMLButtonElement>;
 
-  buttons.forEach((button) => {
-    button.addEventListener("click", (event: Event) => {
-      const target = event.target as HTMLButtonElement;
-      const buttonId = target.getAttribute("data-idEd")!;
-      // console.log(`Button clicked: ${buttonId}`);
-      const producto = productos.obtenerProducto(parseInt(buttonId));
+ buttons.forEach((button) => {
+  button.addEventListener("click", (event: Event) => {
+    const target = event.target as HTMLButtonElement;
+    const buttonId = target.getAttribute("data-idEd")!;
+    const producto = productos.obtenerProducto(parseInt(buttonId));
 
+    if (producto) {
       //llenar formulario con los datos del producto
-      const form = document.getElementById(
-        "editproductForm"
-      )! as HTMLFormElement;
+      const form = document.getElementById("editproductForm")! as HTMLFormElement;
 
-      form.elements.namedItem("idproducto")!.setAttribute("value", buttonId);
-      form.elements.namedItem("editname")!.setAttribute("value", producto.name);
-      form.elements.namedItem("editdescription")!.value = producto.description;
-      //.setAttribute("value", producto.description);
-      form.elements
-        .namedItem("editprecio")!
-        .setAttribute("value", producto.price.toString());
-      form.elements
-        .namedItem("editimagen")!
-        .setAttribute("value", producto.image);
-    });
+      (form.elements.namedItem("idproducto") as HTMLInputElement).setAttribute("value", buttonId);
+      (form.elements.namedItem("editname") as HTMLInputElement).setAttribute("value", producto.name);
+      (form.elements.namedItem("editdescription") as HTMLInputElement).value = producto.description;
+      (form.elements.namedItem("editprecio") as HTMLInputElement).setAttribute("value", producto.price.toString());
+      (form.elements.namedItem("editimagen") as HTMLInputElement).setAttribute("value", producto.image);
+    }
   });
 });
 function editar(): void {
@@ -112,3 +105,4 @@ function agregarProducto(): void {
       if (modal) modal.hide();
     });
 }
+});
