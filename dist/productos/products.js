@@ -39,7 +39,7 @@ export class Productos {
           <p class="card-text">$${producto.price.toFixed(2)}</p>
               <button type="button" data-idE="${producto.id}"  class="btn btn-danger dynamic-btn">Eliminar</button>
       
-      <button
+      <button type="button" 
       data-idEd="${producto.id}"
           id="editProductButton"
           type="button"

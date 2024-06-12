@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ) as HTMLButtonElement;
     button.hidden = true;
     const btnEliminar = document.getElementsByClassName(
-      "btn-danger"
+      "btn"
     ) as HTMLCollectionOf<HTMLButtonElement>;
 
     for (let i = 0; i < btnEliminar.length; i++) {

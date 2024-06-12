@@ -38,6 +38,8 @@ export class Productos {
   numeroProductos(): number {
     return this.productos.length + 1;
   }
+
+  
   agregarProductoAlDOM(producto: Producto): void {
     const container = document.getElementById("productos-container");
 
@@ -58,7 +60,7 @@ export class Productos {
                 producto.id
               }"  class="btn btn-danger dynamic-btn">Eliminar</button>
       
-      <button
+      <button type="button" 
       data-idEd="${producto.id}"
           id="editProductButton"
           type="button"

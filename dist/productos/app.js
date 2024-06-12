@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!username) {
         let button = document.getElementById("addProductButton");
         button.hidden = true;
-        const btnEliminar = document.getElementsByClassName("btn-danger");
+        const btnEliminar = document.getElementsByClassName("btn");
         for (let i = 0; i < btnEliminar.length; i++) {
             btnEliminar[i].hidden = true;
         }
